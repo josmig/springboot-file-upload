@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+<header th:replace="layout/layout :: cabecer-menu"></header>
+
+<form th:action="@{/client/form}" th:object="${cl}" method="post">
+    <div class="container w-50">
+        <div class="form-group">
+            <label>Nombres</label>
+            <input type="text" placeholder="Ingrese nombres" class="form-control" th:field="*{nombres}">
+            <span   class="badge badge-danger"
+                    th:field="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></span>
+        </div>
+        <div class="form-group">
+            <label>Apellidos</label>
+            <input type="text" placeholder="Ingrese nombres" class="form-control" th:field="*{apellidos}">
+            <span   class="badge badge-danger"
+                    th:field="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></span>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" placeholder="Ingrese nombres" class="form-control" th:field="*{email}">
+            <span   class="badge badge-danger"
+                    th:field="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="form-group">
+            <label>Estado</label>
+            <input type="checkbox" th:checked="*{estado}" checked="checked">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Crear usuario">
+    </div>
+</form>
+<footer th:replace="layout/layout :: piedepagina"></footer>
+</body>
+</html>

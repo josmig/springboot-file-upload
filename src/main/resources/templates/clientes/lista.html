@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+<header th:replace="layout/layout :: cabecer-menu"></header>
+<div class="m-5">
+    <h1 th:text="${title}"></h1>
+    <a class="btn btn-outline-info" th:href="@{/client/form}">Crear usuario</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Estado</th>
+            <th>Creado en</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cli: ${client}">
+            <td th:text="${cli.id}"></td>
+            <td th:text="${cli.nombres}"></td>
+            <td th:text="${cli.apellidos}"></td>
+            <td th:text="${cli.email}"></td>
+            <td th:text="${cli.estado}"></td>
+            <td th:text="${cli.create_at}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:replace="layout/layout :: piedepagina"></footer>
+</body>
+</html>
