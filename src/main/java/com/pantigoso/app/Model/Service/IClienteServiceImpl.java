@@ -11,7 +11,7 @@ import java.util.List;
 public class IClienteServiceImpl implements IClienteService {
 
     @Autowired
-    public IClienteDao iClienteDao;
+    private IClienteDao iClienteDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -20,17 +20,20 @@ public class IClienteServiceImpl implements IClienteService {
     }
 
     @Override
+    @Transactional
     public void save(Cliente cliente) {
         iClienteDao.save(cliente);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Cliente findOne(Long id) {
-        return null;
+        return iClienteDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-
+        iClienteDao.deleteById(id);
     }
 }

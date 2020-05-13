@@ -5,9 +5,7 @@ import com.pantigoso.app.Model.Service.IClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -28,8 +26,20 @@ public class ClienteController {
     @GetMapping("/form")
     public String crear(Model model){
         Cliente cliente = new Cliente();
-        model.addAttribute("cl",cliente);
+        model.addAttribute("client",cliente);
         model.addAttribute("title","Formulario de cliente");
+        return "clientes/formulario";
+    }
+
+    @GetMapping("/form/{id}")
+    public String editar(@PathVariable("id")Long id, Model model){
+        Cliente cliente = null;
+        if(id > 0){
+            cliente = service.findOne(id);
+        }
+        model.addAttribute("title","Editar usuario");
+        model.addAttribute("client",cliente);
+
         return "clientes/formulario";
     }
 
@@ -40,4 +50,16 @@ public class ClienteController {
         mode.addAttribute("title","Formulario de cliente");
         return "redirect:/client/list";
     }
+
+    @GetMapping("/delete/{id}")
+    public String eliminar(@PathVariable(name = "id")Long id){
+
+        if(id > 0){
+            service.delete(id);
+        }
+
+        return "redirect:/client/list";
+    }
+
+
 }

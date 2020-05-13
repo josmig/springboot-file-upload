@@ -10,22 +10,26 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Email</th>
             <th>Estado</th>
             <th>Creado en</th>
+            <th>Accion</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cli: ${client}">
-            <td th:text="${cli.id}"></td>
+            <td th:text="${cli.id}" hidden></td>
             <td th:text="${cli.nombres}"></td>
             <td th:text="${cli.apellidos}"></td>
             <td th:text="${cli.email}"></td>
             <td th:text="${cli.estado}"></td>
             <td th:text="${cli.create_at}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{/client/form/} + ${cli.id}">Editar</a>
+                <a class="btn btn-danger" th:href="@{/client/delete/} + ${cli.id}">Eliminar</a>
+            </td>
         </tr>
         </tbody>
     </table>
