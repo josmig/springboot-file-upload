@@ -10,7 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 @Controller
@@ -55,9 +60,26 @@ public class ClienteController {
     }
 
     @PostMapping("/form")
-    public String guardar(Cliente cliente, Model mode){
+    public String guardar(Cliente cliente, Model mode, @RequestParam("file")MultipartFile foto){
 
         service.save(cliente);
+        if(!foto.isEmpty()){
+
+            Path directorioRecursos = Paths.get("src/main/resources/static/upload");
+            String rootPath = directorioRecursos.toFile().getAbsolutePath();
+
+            try{
+                byte[] bytes = foto.getBytes();
+                Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
+                Files.write(rutaCompleta,bytes);
+                //flash.addFlashAttribute("inf","Has subido correctamente '"+ foto.getOriginalFilename() + "'");
+
+                cliente.setFoto(foto.getOriginalFilename());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
         mode.addAttribute("title","Formulario de cliente");
         return "redirect:/client/list";
     }

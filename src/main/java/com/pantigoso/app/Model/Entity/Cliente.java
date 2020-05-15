@@ -25,6 +25,8 @@ public class Cliente implements Serializable {
     @Column
     private Boolean estado;
     @Column
+    private String foto;
+    @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date create_at;
@@ -33,6 +35,7 @@ public class Cliente implements Serializable {
     public void prePersist(){
         create_at = new Date();
     }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -84,5 +87,13 @@ public class Cliente implements Serializable {
 
     public void setCreate_at(Date create_at) {
         this.create_at = create_at;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
