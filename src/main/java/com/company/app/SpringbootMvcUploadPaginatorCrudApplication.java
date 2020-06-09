@@ -1,13 +1,13 @@
-package com.pantigoso.app;
+package com.company.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringFileUploadPageApplication {
+public class SpringbootMvcUploadPaginatorCrudApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringFileUploadPageApplication.class, args);
+        SpringApplication.run(SpringbootMvcUploadPaginatorCrudApplication.class, args);
     }
 
 }

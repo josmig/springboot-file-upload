@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+<header th:replace="layout/layout :: cabecer-menu"></header>
+    <form th:action="@{/client/form}" th:object="${person}" method="post">
+        <div class="container w-50">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Ingrese su nombre">
+            </div>
+            <div class="form-group">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" th:field="*{last_name}" placeholder="Ingrese su apellido">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" th:field="*{email}" placeholder="Ingrese su apellido">
+            </div>
+            <div class="form-group">
+                <label>F-Nacimiento</label>
+                <input type="text" class="form-control" th:field="*{fecha_naci}" placeholder="yyyy-MM-dd">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-outline-primary">
+            </div>
+            <input type="hidden" th:field="*{id}"> <!--necesario para poder editar-->
+        </div>
+    </form>
+<footer th:replace="layout/layout :: piedepagina"></footer>
+</body>
+</html>

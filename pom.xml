@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>2.3.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.pantigoso.app</groupId>
-    <artifactId>spring-file-upload-page</artifactId>
+    <groupId>com.company.app</groupId>
+    <artifactId>springboot-mvc-upload-paginator-crud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-file-upload-page</name>
+    <name>springboot-mvc-upload-paginator-crud</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -37,6 +37,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

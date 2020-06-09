@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+<header th:replace="layout/layout :: cabecer-menu"></header>
+
+<div class="container">
+    <h1 class="m-0 mt-4" th:text="${title}"></h1>
+    <a th:href="@{/client/form}" class="btn btn-link">Crear nueva persona</a>
+    <table class="table pt-4">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Creación</th>
+                <th>Nacimiento</th>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="per : ${person}">
+                <td th:text="${per.name}"></td>
+                <td th:text="${per.last_name}"></td>
+                <td th:text="${per.email}"></td>
+                <td th:text="${per.create_at}"></td>
+                <td th:text="${per.fecha_naci}"></td>
+                <td>
+                    <a th:href="@{/client/form/} + ${per.id}" class="btn btn-outline-success">Editar</a>
+                    <a th:href="@{/client/delete/} + ${per.id}" class="btn btn-outline-danger">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<footer th:replace="layout/layout :: piedepagina"></footer>
+</body>
+</html>
