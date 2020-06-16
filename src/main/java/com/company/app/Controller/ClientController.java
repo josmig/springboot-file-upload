@@ -1,14 +1,16 @@
 package com.company.app.Controller;
 
-import com.company.app.Model.Dao.IPersonDaoImpl;
 import com.company.app.Model.Entity.Person;
+import com.company.app.Model.Services.PersonServiceImpl;
+import com.company.app.Util.Paginator.PageRender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Controller
@@ -17,14 +19,19 @@ import java.util.GregorianCalendar;
 public class ClientController {
 
     @Autowired
-    private IPersonDaoImpl personDao;
+    private PersonServiceImpl personService;
 
     @GetMapping("/list")
-    public String listAll(Model model){
+    public String listAll(@RequestParam(value = "page" ,defaultValue = "0")int page, Model model){
+        //aca le decimos cuantos registros por pagina se mostrara
+        Pageable pageRequest = PageRequest.of(page, 4);
+        Page<Person> person = personService.findAll(pageRequest);
+        PageRender<Person> pageRender= new PageRender<>("/client/list", person);
 
         GregorianCalendar calendar = new GregorianCalendar();
         model.addAttribute("title","LISTA DE CLIENTES -"+ calendar.getWeekYear());
-        model.addAttribute("person", personDao.findAll());
+        model.addAttribute("person",person);
+        model.addAttribute("page",pageRender);
         return  "client/list";
     }
     @GetMapping("/form")
@@ -36,7 +43,7 @@ public class ClientController {
     }
     @PostMapping("/form")
     public String save(Person person, Model model){
-        personDao.save(person);
+        personService.save(person);
     //  sessionStatus.setComplete(); SessionStatus sessionStatus
         return "redirect:/client/list";
     }
@@ -45,7 +52,7 @@ public class ClientController {
     public String edit(@PathVariable(name = "id")Long id,Model model){
         Person person = null;
         if(id>0){
-            person = personDao.find(id);
+            person = personService.findOne(id);
         }
         model.addAttribute("person",person);
         return "client/form";
@@ -53,7 +60,7 @@ public class ClientController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id")Long id){
         if(id > 0){
-            personDao.delete(id);
+            personService.delete(id);
         }
         return "redirect:/client/list";
     }
