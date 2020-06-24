@@ -10,7 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.GregorianCalendar;
 
 @Controller
@@ -42,7 +47,21 @@ public class ClientController {
         return "client/form";
     }
     @PostMapping("/form")
-    public String save(Person person, Model model){
+    public String save(Person person, Model model, @RequestParam("file")MultipartFile foto){
+
+        if(!foto.isEmpty()){
+            Path carpetaUpload = Paths.get("src//main//resources//static/uploads");
+            String rootPath = carpetaUpload.toFile().getAbsolutePath();
+            try{
+                byte[] bytes = foto.getBytes();
+                Path ruta_completa = Paths.get(rootPath + "//" + foto.getOriginalFilename());
+                Files.write(ruta_completa,bytes);
+                person.setFoto(foto.getOriginalFilename());
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
         personService.save(person);
     //  sessionStatus.setComplete(); SessionStatus sessionStatus
         return "redirect:/client/list";

@@ -4,7 +4,7 @@
 </head>
 <body>
 <header th:replace="layout/layout :: cabecer-menu"></header>
-    <form th:action="@{/client/form}" th:object="${person}" method="post">
+    <form th:action="@{/client/form}" th:object="${person}" method="post" enctype="multipart/form-data">
         <div class="container w-50">
             <div class="form-group">
                 <label>Nombre</label>
@@ -21,6 +21,10 @@
             <div class="form-group">
                 <label>F-Nacimiento</label>
                 <input type="text" class="form-control" th:field="*{fecha_naci}" placeholder="yyyy-MM-dd">
+            </div>
+            <div class="form-group">
+                <label>Subir Foto</label>
+                <input type="file" class="form-control" name="file">
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-outline-primary">
