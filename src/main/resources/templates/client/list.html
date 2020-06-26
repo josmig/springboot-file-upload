@@ -11,6 +11,7 @@
     <table class="table pt-4">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Email</th>
@@ -21,6 +22,7 @@
         </thead>
         <tbody>
             <tr th:each="per : ${person}">
+                <td><a th:href="@{/client/ver/} + ${per.id}" th:text="${per.id}"></a></td>
                 <td th:text="${per.name}"></td>
                 <td th:text="${per.last_name}"></td>
                 <td th:text="${per.email}"></td>
